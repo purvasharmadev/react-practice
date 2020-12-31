@@ -1,2 +1,2 @@
-# react-practice
+# Emoji-interpreter-react
 Created with CodeSandbox

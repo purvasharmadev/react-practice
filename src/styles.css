@@ -1,0 +1,18 @@
+body {
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+}
+h2 {
+  text-align: left;
+}
+p {
+  text-align: justify;
+}
+.App {
+  padding: 2rem;
+  font-family: sans-serif;
+  text-align: center;
+}
