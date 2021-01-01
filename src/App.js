@@ -1,14 +1,53 @@
-import React ,{useState} from "react";
+import React, { useState } from "react";
 import "./styles.css";
 
 myDictionary = {
-  "1":"one",
-  "2":"two",
-  "3":"three",
-  "4":"four",
-  "5":"five",
-}
-
+  "1": "one",
+  "2": "two",
+  "3": "three",
+  "4": "four",
+  "5": "five"
+};
+listDictionary = {
+  All: [
+    {
+      bookname: "fault in our stars",
+      bookreview: "must read !"
+    },
+    {
+      bookname: "the notebook",
+      bookreview: "the best !"
+    },
+    {
+      bookname: "lovestory 2050",
+      bookreview: "nice"
+    },
+    {
+      bookname: "the robot",
+      bookreview: "intresting"
+    }
+  ],
+  romantic: [
+    {
+      bookname: "fault in our stars",
+      bookreview: "must read !"
+    },
+    {
+      bookname: "the notebook",
+      bookreview: "the best !"
+    }
+  ],
+  scifi: [
+    {
+      bookname: "lovestory 2050",
+      bookreview: "nice"
+    },
+    {
+      bookname: "the robot",
+      bookreview: "intresting"
+    }
+  ]
+};
 
 export default function App() {
   var bg = "blue";
@@ -17,23 +56,38 @@ export default function App() {
   var pf = "https://repl.it/@purvasharmadev";
 
   // LikeHandler
-  var [like,setlike] = useState(0);
-  function likeHandler(){
-    console.log("cliked")
+  var [like, setlike] = useState(0);
+  function likeHandler() {
+    console.log("cliked");
     var newLike = like + 1;
-    setlike(newLike)
+    setlike(newLike);
   }
-// InputHandler
-  var [uName,setUname] = useState("");
-  function inputHandler(event){
+  // InputHandler
+  var [uName, setUname] = useState("");
+  function inputHandler(event) {
     // console.log("user is typing...")
     var newUname = event.target.value;
     var uName = myDictionary[newUname];
-    if(uName === undefined){
-      uName = "sorry :( no more numbers"
+    if (uName === undefined) {
+      uName = "sorry :( no more numbers";
     }
     setUname(uName);
   }
+  // NumbersWeKnow
+  function numClickHandler(numbers) {
+    var uName = myDictionary[numbers];
+    setUname(uName);
+  }
+  var numWeKnow = Object.keys(myDictionary);
+  // Getting list from the dictionary
+  // var [list, setList] = useState("");
+
+  // function listClickHandler(list) {
+  //   //  var myList = listDictionary[lists];
+
+  //   setList(list);
+  // }
+  // var newList = Object.keys(listDictionary);
 
   return (
     <div className="App">
@@ -103,21 +157,75 @@ export default function App() {
       <button onClick={likeHandler}>you liked me {like} times</button>
 
       <h2>Render Cycle</h2>
-      <p> <strong>VISER</strong> <br/> <br/>
-      Render a <strong>V</strong>iew <br/>
-      User will <strong>I</strong>nteract <br/> Update the <strong>S</strong>tate in <strong>E</strong>vent Handler <br/>
-      After the update we <strong>R</strong>ender it again.
+      <p>
+        {" "}
+        <strong>VISER</strong> <br /> <br />
+        Render a <strong>V</strong>iew <br />
+        User will <strong>I</strong>nteract <br /> Update the <strong>S</strong>
+        tate in <strong>E</strong>vent Handler <br />
+        After the update we <strong>R</strong>ender it again.
       </p>
 
       <h2>Handling data with input element</h2>
-      <p> we use <strong>OnChange event </strong> to get the value user is typing. <br/>
-      Update the value using <strong>useState</strong> <br/>
-      get the value in view using <strong>Event.target</strong> </p>
+      <p>
+        {" "}
+        we use <strong>OnChange event </strong> to get the value user is typing.{" "}
+        <br />
+        Update the value using <strong>useState</strong> <br />
+        get the value in view using <strong>Event.target</strong>{" "}
+      </p>
 
+      <h3>
+        Enter a digit <small>e.g 1, 2, 3</small>
+      </h3>
+      <input onChange={inputHandler} />
+      <h4>number: {uName} </h4>
+      <h4> numbers we know: </h4>
+      {numWeKnow.map(function (numbers) {
+        return (
+          <span
+            onClick={() => numClickHandler(numbers)}
+            style={{ cursor: "pointer" }}
+          >
+            {" "}
+            {numbers}{" "}
+          </span>
+        );
+      })}
 
-      <h3>Enter a digit <small>e.g 1, 2, 3</small></h3>
-      <input onChange={inputHandler}/>
-      <h4>number:  {uName} </h4>
+      <br />
+      <h2>Handling list of Data</h2>
+      <p>
+        {" "}
+        To print a list in react we use <strong>Map()</strong> function <br />
+        Map() iterates over the values of elements present in the list unlikely
+        in for loop we iterate over the value of 'i'.
+        <br />
+        <br />
+        converting an object to an array.
+        <br />
+        <strong>console.log(Object.keys(myDictionary)</strong>
+        <br />
+      </p>
+      <h2>onClick show a list instead of just an item</h2>
+      {/* <p>
+        {newList.map((list) =>( 
+     
+            <h3 onClick={listClickHandler(list)} style={{ cursor: "pointer" }}>
+              {list}
+            </h3>
+          )
+        )
+        }
+      </p> */}
+      {/* <p>
+        {listDictionary[list].map((myList) => (
+          <p key={myList.bookname}>
+            <h3>{myList.bookname}</h3>
+            <h3>{myList.bookreview}</h3>
+          </p>
+        ))}
+      </p> */}
     </div>
   );
 }
